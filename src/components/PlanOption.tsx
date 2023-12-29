@@ -12,7 +12,7 @@ function PlanOption(props: Props) {
   return (
     <div className="w-full md:w-32">
       <input
-        className="peer h-[1px] w-[1px] opacity-0"
+        className="peer h-[1px] w-[1px] opacity-0 hidden"
         type="radio"
         name={props.name}
         id={props.name + id}
