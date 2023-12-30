@@ -6,6 +6,7 @@ type Props = {
   price: number;
   name?: string;
   checked?: boolean;
+  duration?: string;
 };
 
 function AddonsCheckbox({
@@ -14,21 +15,22 @@ function AddonsCheckbox({
   price,
   name,
   checked = false,
+  duration = "monthly",
 }: Props) {
   const id = useId();
   return (
-    <div className="w-full">
+    <div className="group w-full">
       <input
-        className="peer h-[1px] w-[1px] opacity-0"
+        className="peer hidden h-[1px] w-[1px] opacity-0"
         type="checkbox"
         name={name}
         id={name + id}
       />
       <label
         htmlFor={name + id}
-        className="block w-full cursor-pointer rounded-lg border border-slate-300 p-4 hover:border-purplishBlue peer-checked:border-purplishBlue peer-checked:bg-alabaster "
+        className="block w-full cursor-pointer rounded-lg border border-slate-300 px-6 py-4 hover:border-purplishBlue peer-checked:border-purplishBlue peer-checked:bg-alabaster "
       >
-        <div className="flex items-center justify-between">
+        <div className="flex items-center gap-6">
           <div className="">
             {checked ? (
               <svg
@@ -70,8 +72,8 @@ function AddonsCheckbox({
               {description}
             </p>
           </div>
-          <p className="mt-1 text-[0.85rem] text-purplishBlue md:mt-2">
-            ${price}/mo
+          <p className="ml-auto mt-1 text-[0.85rem] text-purplishBlue md:mt-2">
+            ${duration === "yearly" ? price * 10 : price}/mo
           </p>
         </div>
       </label>
