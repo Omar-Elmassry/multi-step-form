@@ -1,32 +1,31 @@
 import { cn } from "@/lib/utils";
 import { useId } from "react";
+import { useFormContext } from "react-hook-form";
 
 type Props = {
   icon: JSX.Element;
-  label: string;
+  planName: string;
   price: number;
-  name?: string;
-  duration?: string;
+  inputName: string;
 };
 
-function PlanOption({
-  icon,
-  label,
-  price,
-  name = "plan",
-  duration = "monthly",
-}: Props) {
+function PlanOption({ icon, planName, price, inputName = "plan" }: Props) {
   const id = useId();
+
+  const { register, watch } = useFormContext();
+  const duration = watch("duration");
+
   return (
     <div className="w-full md:w-32">
       <input
         className="peer hidden h-[1px] w-[1px] opacity-0"
         type="radio"
-        name={name}
-        id={name + id}
+        value={planName}
+        id={inputName + id}
+        {...register(inputName)}
       />
       <label
-        htmlFor={name + id}
+        htmlFor={inputName + id}
         className="block w-full cursor-pointer rounded-lg border border-slate-300 p-4 hover:border-purplishBlue peer-checked:border-purplishBlue peer-checked:bg-alabaster md:h-40"
       >
         <div
@@ -38,7 +37,7 @@ function PlanOption({
           {icon}
 
           <div>
-            <p className="font-medium text-marineBlue">{label}</p>
+            <p className="font-medium text-marineBlue">{planName}</p>
             <p className="mt-1 text-sm text-coolGray md:mt-2">
               ${duration === "yearly" ? price * 10 : price}/mo
             </p>

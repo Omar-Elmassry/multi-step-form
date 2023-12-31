@@ -1,9 +1,5 @@
-import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 
-// type Props = {};
-
-// function PersonalInfoStep({}: Props) {
 function PersonalInfoStep() {
   return (
     <>
@@ -32,12 +28,6 @@ function PersonalInfoStep() {
           placeholder="e.g. +1 234 567 890"
         />
       </section>
-
-      <div className="absolute bottom-0 left-0 flex w-full bg-white p-5 md:static md:ml-auto md:mt-auto md:p-0">
-        <Button variant="primary" className="ml-auto">
-          Next Step
-        </Button>
-      </div>
     </>
   );
 }

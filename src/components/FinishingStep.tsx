@@ -1,8 +1,28 @@
+import { useFormContext } from "react-hook-form";
 import { Button } from "./ui/button";
-// type Props = {};
+import { addons, plans } from "@/FormInfo";
 
-// function PersonalInfoStep({}: Props) {
-function FinishingStep() {
+type Props = {
+  backToPlans: () => void;
+};
+
+function FinishingStep({ backToPlans }: Props) {
+  const { watch } = useFormContext();
+
+  const plan = watch("plan");
+  const duration = watch("duration");
+  const pickedAddons = watch("addons");
+
+  const addonsTotalPrice = pickedAddons.reduce(
+    (acc: number, curr: string) =>
+      acc + (addons.find((a) => a.title === curr)?.price ?? 0),
+    0,
+  );
+
+  const planPrice = plans.find((p) => p.name === plan)?.price;
+
+  const totalPrice = addonsTotalPrice + (planPrice ?? 0);
+
   return (
     <>
       <h1 className="text-[2rem] font-bold text-marineBlue">Finishing up</h1>
@@ -14,39 +34,56 @@ function FinishingStep() {
         <div className="mt-9 flex flex-col rounded-lg bg-alabaster px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex flex-col items-start justify-start">
-              <h2 className="font-medium text-marineBlue">Arcade (Monthly)</h2>
+              <h2 className="font-medium text-marineBlue">
+                {plan} ({duration})
+              </h2>
               <Button
-                variant="text"
                 className="h-auto p-0 text-sm underline hover:text-purplishBlue"
+                variant="text"
+                type="button"
+                onClick={backToPlans}
               >
                 Change
               </Button>
             </div>
-            <p className="font-bold text-marineBlue">$9/mo</p>
+            <p className="font-bold text-marineBlue">
+              ${duration === "yearly" ? (planPrice ?? 0) * 10 : planPrice ?? 0}
+              /mo
+            </p>
           </div>
 
-          <hr className="mt-6" />
+          {pickedAddons.length > 0 && (
+            <>
+              <hr className="mt-6" />
 
-          <div className="">
-            <div className="mt-4 flex justify-between">
-              <p className=" text-sm text-coolGray">Online service</p>
-              <p className=" text-sm text-marineBlue">+$1/mo</p>
-            </div>
-            <div className="mt-4 flex justify-between">
-              <p className=" text-sm text-coolGray">Online service</p>
-              <p className=" text-sm text-marineBlue">+$1/mo</p>
-            </div>
-          </div>
+              <div className="">
+                {pickedAddons.map((value: string) => {
+                  const addon = addons.find((a) => a.title === value);
+                  return (
+                    <div key={value} className="mt-4 flex justify-between">
+                      <p className=" text-sm text-coolGray">{addon?.title}</p>
+                      <p className=" text-sm text-marineBlue">
+                        +$
+                        {duration === "yearly"
+                          ? (addon?.price ?? 0) * 10
+                          : addon?.price}
+                        /mo
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+            </>
+          )}
         </div>
         <div className="mt-6 flex w-full justify-between px-6 ">
           <p className="text-sm text-coolGray">Total (per month)</p>
-          <p className="text-xl font-bold text-purplishBlue">+$12/mo</p>
+          <p className="text-xl font-bold text-purplishBlue">
+            +$
+            {duration === "yearly" ? totalPrice * 10 : totalPrice}
+            /mo
+          </p>
         </div>
-      </div>
-
-      <div className="absolute bottom-0 left-0 flex w-full justify-between bg-white p-5 md:static md:ml-auto md:mt-auto md:p-0">
-        <Button variant="text">Go back</Button>
-        <Button variant="secondary">Confirm</Button>
       </div>
     </>
   );

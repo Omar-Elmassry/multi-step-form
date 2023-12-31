@@ -1,33 +1,31 @@
 import { useId } from "react";
+import { useFormContext } from "react-hook-form";
 
 type Props = {
   title: string;
   description: string;
   price: number;
-  name?: string;
-  checked?: boolean;
-  duration?: string;
+  inputName: string;
 };
 
-function AddonsCheckbox({
-  title,
-  description,
-  price,
-  name,
-  checked = false,
-  duration = "monthly",
-}: Props) {
+function AddonsCheckbox({ title, description, price, inputName }: Props) {
   const id = useId();
+  const { register, watch } = useFormContext();
+  const duration = watch("duration");
+
+  const checked = watch("addons").includes(title);
+
   return (
     <div className="group w-full">
       <input
         className="peer hidden h-[1px] w-[1px] opacity-0"
         type="checkbox"
-        name={name}
-        id={name + id}
+        id={inputName + id}
+        value={title}
+        {...register(inputName)}
       />
       <label
-        htmlFor={name + id}
+        htmlFor={inputName + id}
         className="block w-full cursor-pointer rounded-lg border border-slate-300 px-6 py-4 hover:border-purplishBlue peer-checked:border-purplishBlue peer-checked:bg-alabaster "
       >
         <div className="flex items-center gap-6">
@@ -44,7 +42,7 @@ function AddonsCheckbox({
                 <path
                   d="M5 10L8.43298 13.433L14.866 7"
                   stroke="white"
-                  stroke-width="2"
+                  strokeWidth="2"
                 />
               </svg>
             ) : (
