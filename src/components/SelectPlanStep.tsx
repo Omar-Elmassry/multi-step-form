@@ -18,14 +18,14 @@ function SelectPlanStep() {
 
   return (
     <>
-      <h1 className="text-[2rem] font-bold text-marineBlue">
+      <h1 className="text-2xl font-bold text-marineBlue md:text-[2rem]">
         Select your plan
       </h1>
       <p className="text-coolGray">
         You have the option of monthly or yearly billing.
       </p>
 
-      <div className="mt-9 flex flex-col justify-between gap-3 md:flex-row">
+      <div className="mt-5 flex flex-col justify-between gap-3 md:mt-9 md:flex-row">
         {plans.map((plan) => (
           <PlanOption
             key={plan.name}
@@ -36,9 +36,9 @@ function SelectPlanStep() {
           />
         ))}
       </div>
-      <p className="mt-1 h-[2ch] text-sm text-strawberryRed">
-        {errorMsg && (errorMsg as string)}
-      </p>
+      {errorMsg && (
+        <p className="mt-1 text-sm text-strawberryRed">{errorMsg as string}</p>
+      )}
 
       <div className="mt-6 flex items-center justify-center gap-6 rounded-lg bg-alabaster py-4">
         <p

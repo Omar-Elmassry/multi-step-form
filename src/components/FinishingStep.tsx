@@ -25,13 +25,15 @@ function FinishingStep({ backToPlans }: Props) {
 
   return (
     <>
-      <h1 className="text-[2rem] font-bold text-marineBlue">Finishing up</h1>
+      <h1 className="text-2xl font-bold text-marineBlue md:text-[2rem]">
+        Finishing up
+      </h1>
       <p className="text-coolGray">
         Double-check everything looks OK before confirming.
       </p>
 
       <div className="w-full">
-        <div className="mt-9 flex flex-col rounded-lg bg-alabaster px-6 py-4">
+        <div className="mt-5 flex flex-col rounded-lg bg-alabaster px-6 py-4 md:mt-9">
           <div className="flex items-center justify-between">
             <div className="flex flex-col items-start justify-start">
               <h2 className="font-medium text-marineBlue">

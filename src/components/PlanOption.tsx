@@ -18,7 +18,7 @@ function PlanOption({ icon, planName, price, inputName = "plan" }: Props) {
   return (
     <div className="w-full md:w-32">
       <input
-        className="peer hidden h-[1px] w-[1px] opacity-0"
+        className="peer absolute opacity-0"
         type="radio"
         value={planName}
         id={inputName + id}
@@ -26,7 +26,7 @@ function PlanOption({ icon, planName, price, inputName = "plan" }: Props) {
       />
       <label
         htmlFor={inputName + id}
-        className="block w-full cursor-pointer rounded-lg border border-slate-300 p-4 hover:border-purplishBlue peer-checked:border-purplishBlue peer-checked:bg-alabaster md:h-40"
+        className="block w-full cursor-pointer rounded-lg border border-slate-300 p-3 hover:border-purplishBlue peer-checked:border-purplishBlue peer-checked:bg-alabaster peer-focus-visible:ring md:h-40 md:p-4"
       >
         <div
           className={cn(

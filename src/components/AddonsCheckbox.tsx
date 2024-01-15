@@ -18,7 +18,7 @@ function AddonsCheckbox({ title, description, price, inputName }: Props) {
   return (
     <div className="group w-full">
       <input
-        className="peer hidden h-[1px] w-[1px] opacity-0"
+        className="peer absolute opacity-0"
         type="checkbox"
         id={inputName + id}
         value={title}
@@ -26,9 +26,9 @@ function AddonsCheckbox({ title, description, price, inputName }: Props) {
       />
       <label
         htmlFor={inputName + id}
-        className="block w-full cursor-pointer rounded-lg border border-slate-300 px-6 py-4 hover:border-purplishBlue peer-checked:border-purplishBlue peer-checked:bg-alabaster "
+        className="block w-full cursor-pointer rounded-lg border border-slate-300 px-6 py-4 hover:border-purplishBlue peer-checked:border-purplishBlue peer-checked:bg-alabaster peer-focus-visible:ring"
       >
-        <div className="flex items-center gap-6">
+        <div className="flex items-center md:gap-6 gap-4">
           <div className="">
             {checked ? (
               <svg
@@ -65,8 +65,10 @@ function AddonsCheckbox({ title, description, price, inputName }: Props) {
             )}
           </div>
           <div>
-            <p className="font-medium text-marineBlue">{title}</p>
-            <p className="mt-1 text-[0.85rem] text-coolGray md:mt-2">
+            <p className="text-sm font-medium text-marineBlue md:text-base">
+              {title}
+            </p>
+            <p className="mt-1 text-xs text-coolGray md:mt-2 md:text-[0.85rem]">
               {description}
             </p>
           </div>
