@@ -5,6 +5,7 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: "/multi-step-form/",
   plugins: [react(), svgr()],
   resolve: {
     alias: {
